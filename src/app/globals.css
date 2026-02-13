@@ -1,0 +1,255 @@
+@config "../../tailwind.config.mjs";
+@import 'tailwindcss';
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CSS Custom Properties — mapped from design tokens
+   These provide a fallback escape-hatch for complex styles that can't use
+   Tailwind utilities alone.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* Brand */
+  --color-brand-primary: #1b6ce0;
+  --color-brand-primary-hover: #1559b8;
+  --color-brand-primary-light: #e8f1fd;
+  --color-brand-secondary: #0d9488;
+  --color-brand-secondary-light: #e6f7f5;
+
+  /* Surfaces */
+  --color-surface: #ffffff;
+  --color-surface-alt: #f9fafb;
+  --color-surface-page: #f4f7fc;
+
+  /* Borders */
+  --color-border: #e5e9f0;
+  --color-border-light: #eef2f7;
+  --color-border-divider: #e2e8f0;
+
+  /* Text */
+  --color-text-primary: #1a202c;
+  --color-text-secondary: #4a5568;
+  --color-text-tertiary: #718096;
+  --color-text-link: #1b6ce0;
+
+  /* Status */
+  --color-success: #22c55e;
+  --color-success-bg: #ecfdf5;
+  --color-warning: #f59e0b;
+  --color-warning-bg: #fffbeb;
+  --color-warning-text: #d97706;
+  --color-danger: #ef4444;
+  --color-danger-bg: #fef2f2;
+  --color-danger-text: #dc2626;
+
+  /* Layout */
+  --sidebar-width: 72px;
+  --header-height: 64px;
+  --content-padding: 24px;
+
+  /* Shadows */
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-card-hover: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-dropdown: 0 10px 40px rgba(0, 0, 0, 0.08);
+
+  /* Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Base Typography
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@layer base {
+  html {
+    font-family:
+      'Plus Jakarta Sans',
+      'Nunito Sans',
+      system-ui,
+      -apple-system,
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-surface-page text-txt-primary text-base;
+  }
+
+  h1 {
+    @apply text-3xl font-bold tracking-tight text-txt-primary;
+  }
+
+  h2 {
+    @apply text-2xl font-semibold tracking-tight text-txt-primary;
+  }
+
+  h3 {
+    @apply text-xl font-semibold text-txt-primary;
+  }
+
+  h4 {
+    @apply text-lg font-semibold text-txt-primary;
+  }
+
+  h5 {
+    @apply text-md font-medium text-txt-primary;
+  }
+
+  p {
+    @apply text-base text-txt-secondary leading-relaxed;
+  }
+
+  a {
+    @apply text-txt-link transition-colors duration-fast hover:text-brand-primary-hover;
+  }
+
+  /* Remove spinner from number inputs */
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Utility Components
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@layer components {
+  /* Typography presets */
+  .text-heading-1 {
+    @apply text-3xl font-bold tracking-tight text-txt-primary;
+  }
+
+  .text-heading-2 {
+    @apply text-2xl font-semibold tracking-tight text-txt-primary;
+  }
+
+  .text-heading-3 {
+    @apply text-xl font-semibold text-txt-primary;
+  }
+
+  .text-heading-4 {
+    @apply text-lg font-semibold text-txt-primary;
+  }
+
+  .text-body {
+    @apply text-base text-txt-secondary;
+  }
+
+  .text-body-sm {
+    @apply text-sm text-txt-secondary;
+  }
+
+  .text-caption {
+    @apply text-xs text-txt-tertiary;
+  }
+
+  .text-label {
+    @apply text-xs font-semibold uppercase tracking-wider text-txt-tertiary;
+  }
+
+  .text-overline {
+    @apply text-xs font-bold uppercase tracking-widest text-txt-tertiary;
+  }
+
+  /* Card presets */
+  .card {
+    @apply bg-surface rounded-xl border border-border shadow-card;
+  }
+
+  .card-hover {
+    @apply bg-surface rounded-xl border border-border shadow-card transition-shadow duration-base hover:shadow-card-hover;
+  }
+
+  /* Badge presets */
+  .badge-warning-minor {
+    @apply inline-flex items-center gap-1.5 rounded-pill px-2.5 py-1
+           bg-status-warning-bg text-status-warning-text text-xs font-medium;
+  }
+
+  .badge-warning-major {
+    @apply inline-flex items-center gap-1.5 rounded-pill px-2.5 py-1
+           bg-status-danger-bg text-status-danger-text text-xs font-medium;
+  }
+
+  .badge-no-warning {
+    @apply inline-flex items-center gap-1.5 rounded-pill px-2.5 py-1
+           bg-status-success-bg text-green-700 text-xs font-medium;
+  }
+
+  /* Scrollbar styling */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border) transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: var(--color-border);
+    border-radius: 9999px;
+  }
+
+  /* Section header in table */
+  .section-header {
+    @apply bg-brand-primary-light/60 px-4 py-2.5 text-xs font-bold
+           uppercase tracking-wider text-brand-primary;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Animation Utilities
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@layer utilities {
+  .animation-delay-100 {
+    animation-delay: 100ms;
+  }
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+  .animation-delay-300 {
+    animation-delay: 300ms;
+  }
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
+  .animation-delay-500 {
+    animation-delay: 500ms;
+  }
+  .animation-delay-600 {
+    animation-delay: 600ms;
+  }
+  .animation-delay-700 {
+    animation-delay: 700ms;
+  }
+  .animation-delay-800 {
+    animation-delay: 800ms;
+  }
+
+  .animation-fill-forwards {
+    animation-fill-mode: forwards;
+  }
+  .animation-fill-both {
+    animation-fill-mode: both;
+  }
+}
