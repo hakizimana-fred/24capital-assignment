@@ -12,7 +12,9 @@
     "start": "next start",
     "lint": "eslint",
     "prettier": "prettier --write .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -29,6 +31,10 @@
   "devDependencies": {
     "@commitlint/cli": "^20.4.1",
     "@commitlint/config-conventional": "^20.4.1",
+    "@storybook/addon-a11y": "^10.2.8",
+    "@storybook/addon-docs": "^10.2.8",
+    "@storybook/nextjs": "^10.2.8",
+    "@storybook/react": "^10.2.8",
     "@tailwindcss/postcss": "^4.1.18",
     "@types/d3-hierarchy": "^3.1.7",
     "@types/d3-shape": "^3.1.8",
@@ -39,6 +45,7 @@
     "eslint-config-next": "16.1.6",
     "husky": "^9.1.7",
     "prettier": "^3.8.1",
+    "storybook": "^10.2.8",
     "tailwindcss": "^4.1.18",
     "typescript": "^5"
   }
