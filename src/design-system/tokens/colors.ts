@@ -1,0 +1,72 @@
+export const colors = {
+  brand: {
+    primary: '#1B6CE0',
+    'primary-hover': '#1559B8',
+    'primary-light': '#E8F1FD',
+    secondary: '#0D9488',
+    'secondary-light': '#E6F7F5',
+  },
+  surface: {
+    DEFAULT: '#FFFFFF',
+    alt: '#F9FAFB',
+    page: '#F4F7FC',
+  },
+  border: {
+    DEFAULT: '#E5E9F0',
+    light: '#EEF2F7',
+    divider: '#E2E8F0',
+  },
+  txt: {
+    primary: '#1A202C',
+    secondary: '#4A5568',
+    tertiary: '#718096',
+    inverse: '#FFFFFF',
+    link: '#1B6CE0',
+  },
+  status: {
+    success: '#22C55E',
+    'success-bg': '#ECFDF5',
+    warning: '#F59E0B',
+    'warning-bg': '#FFFBEB',
+    'warning-text': '#D97706',
+    danger: '#EF4444',
+    'danger-bg': '#FEF2F2',
+    'danger-text': '#DC2626',
+    info: '#3B82F6',
+    'info-bg': '#EFF6FF',
+  },
+  sidebar: {
+    bg: '#F4F7FC',
+    icon: '#94A3B8',
+    'icon-active': '#1B6CE0',
+    label: '#94A3B8',
+  },
+  chart: {
+    blue: '#1B6CE0',
+    teal: '#0D9488',
+    orange: '#F59E0B',
+    red: '#EF4444',
+    purple: '#8B5CF6',
+    pink: '#EC4899',
+    indigo: '#6366F1',
+    emerald: '#10B981',
+    cyan: '#06B6D4',
+    slate: '#64748B',
+    lime: '#84CC16',
+  },
+} as const;
+
+/** Flat chart palette array for easy iteration */
+export const chartPalette = [
+  colors.chart.blue,
+  colors.chart.teal,
+  colors.chart.orange,
+  colors.chart.red,
+  colors.chart.purple,
+  colors.chart.pink,
+  colors.chart.indigo,
+  colors.chart.emerald,
+  colors.chart.cyan,
+  colors.chart.slate,
+  colors.chart.lime,
+] as const;
