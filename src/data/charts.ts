@@ -3,6 +3,8 @@ import type {
   PieChartDataPoint,
   BarChartDataPoint,
   SunburstNode,
+  LineChartSeries,
+  SelectOption,
 } from '@/types';
 import { colors } from '@/design-system/tokens';
 
@@ -40,6 +42,34 @@ export const barChartData: BarChartDataPoint[] = [
   { symbol: 'TSLA', month1: 6800, month2: 5900 },
   { symbol: 'META', month1: 5400, month2: 6100 },
   { symbol: 'JPM', month1: 4200, month2: 4800 },
+];
+
+// ─── Company Size Comparison (MultiLineChart) ──────────────────────────────
+
+export const companySizeData: Record<string, string | number>[] = [
+  { month: 'Jan 25', companyA: 200, companyB: 200 },
+  { month: 'Feb 25', companyA: 210, companyB: 202 },
+  { month: 'Mar 25', companyA: 210, companyB: 205 },
+  { month: 'Apr 25', companyA: 215, companyB: 208 },
+  { month: 'May 25', companyA: 216, companyB: 210 },
+  { month: 'Jun 25', companyA: 215, companyB: 213 },
+  { month: 'Jul 25', companyA: 222, companyB: 215 },
+  { month: 'Aug 25', companyA: 225, companyB: 218 },
+  { month: 'Sep 25', companyA: 228, companyB: 220 },
+  { month: 'Oct 25', companyA: 232, companyB: 225 },
+  { month: 'Nov 25', companyA: 237, companyB: 229 },
+  { month: 'Dec 25', companyA: 240, companyB: 231 },
+];
+
+export const companySizeSeries: LineChartSeries[] = [
+  { dataKey: 'companyA', name: 'Company A', color: colors.chart.blue },
+  { dataKey: 'companyB', name: 'Company B', color: colors.chart.pink },
+];
+
+export const yearOptions: SelectOption[] = [
+  { value: '2025', label: '2025' },
+  { value: '2024', label: '2024' },
+  { value: '2023', label: '2023' },
 ];
 
 export const sunburstData: SunburstNode = {

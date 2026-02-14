@@ -39,6 +39,31 @@ export interface LineChartDataPoint {
   company2: number;
 }
 
+export interface LineChartSeries {
+  dataKey: string;
+  name: string;
+  color: string;
+}
+
+export interface MultiLineChartProps {
+  title: string;
+  subtitle?: string;
+  data: Record<string, string | number>[];
+  xAxisKey: string;
+  series: LineChartSeries[];
+  xAxisLabel?: string;
+  yAxisLabel?: string;
+  height?: number;
+  showDots?: boolean;
+  yAxisDomain?: [number | string, number | string];
+  tooltipFormatter?: (value: number, name: string) => string;
+  yAxisFormatter?: (value: number) => string;
+  periodOptions?: SelectOption[];
+  periodValue?: string;
+  onPeriodChange?: (value: string) => void;
+  className?: string;
+}
+
 export interface PieChartDataPoint {
   name: string;
   value: number;
@@ -56,6 +81,46 @@ export interface SunburstNode {
   value?: number;
   color?: string;
   children?: SunburstNode[];
+}
+
+// ─── Reusable Charts ────────────────────────────────────────────────────────
+
+export interface ReusablePieChartProps {
+  title: string;
+  data: PieChartDataPoint[];
+  innerRadius?: number;
+  outerRadius?: number;
+  showLabels?: boolean;
+  height?: number;
+  className?: string;
+}
+
+export interface BarSeries {
+  dataKey: string;
+  name: string;
+  color: string;
+}
+
+export interface HorizontalBarChartProps {
+  title: string;
+  data: Record<string, string | number>[];
+  categoryKey: string;
+  series: BarSeries[];
+  xAxisLabel?: string;
+  yAxisLabel?: string;
+  height?: number;
+  xAxisDomain?: [number | string, number | string];
+  tooltipFormatter?: (value: number, name: string) => string;
+  className?: string;
+}
+
+export interface ReusableSunburstChartProps {
+  title: string;
+  data: SunburstNode;
+  showLabels?: boolean;
+  width?: number;
+  height?: number;
+  className?: string;
 }
 
 // ─── Navigation ──────────────────────────────────────────────────────────────
