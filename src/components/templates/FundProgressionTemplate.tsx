@@ -1,18 +1,23 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { PageHeader } from '@/components/organisms/PageHeader';
 import { FundTabs } from '@/components/organisms/FundTabs';
 import { FundTable } from '@/components/organisms/FundTable';
+import { QuestionDetailModal } from '@/components/organisms/QuestionDetailModal';
 import { FilterBar } from '@/components/molecules/FilterBar';
+import { useModal } from '@/hooks/useModal';
+import { getQuestionDetail } from '@/data/questionDetails';
 import { funds, fundSections } from '@/data/funds';
-import type { FilterTab, SelectOption } from '@/types';
+import type { FilterTab, QuestionDetail, QuestionItem, SelectOption } from '@/types';
 
 export function FundProgressionTemplate() {
   const [activeFundId, setActiveFundId] = useState(funds[0].id);
   const [activeFilter, setActiveFilter] = useState<FilterTab>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedSection, setSelectedSection] = useState('all');
+
+  const detailModal = useModal<QuestionDetail>();
 
   const sections = useMemo(
     () => fundSections[activeFundId] ?? [],
@@ -36,6 +41,19 @@ export function FundProgressionTemplate() {
     setSearchQuery('');
     setSelectedSection('all');
   };
+
+  const handleViewDetails = useCallback(
+    (question: QuestionItem) => {
+      const detail = getQuestionDetail(
+        question.id,
+        question.question,
+        question.number,
+        question.warningLevel,
+      );
+      detailModal.open(detail);
+    },
+    [detailModal],
+  );
 
   return (
     <div className="flex flex-col gap-6 animate-fade-in">
@@ -65,7 +83,16 @@ export function FundProgressionTemplate() {
         activeFilter={activeFilter}
         searchQuery={searchQuery}
         selectedSection={selectedSection}
+        onViewDetails={handleViewDetails}
       />
+
+      {detailModal.data && (
+        <QuestionDetailModal
+          open={detailModal.isOpen}
+          onClose={detailModal.close}
+          detail={detailModal.data}
+        />
+      )}
     </div>
   );
 }

@@ -3,13 +3,14 @@
 import { useMemo } from 'react';
 import { QuestionRow } from '@/components/molecules/QuestionRow';
 import { SectionHeader } from '@/components/molecules/SectionHeader';
-import type { Section, FilterTab } from '@/types';
+import type { Section, FilterTab, QuestionItem } from '@/types';
 
 interface FundTableProps {
   sections: Section[];
   activeFilter: FilterTab;
   searchQuery: string;
   selectedSection: string;
+  onViewDetails?: (question: QuestionItem) => void;
 }
 
 export function FundTable({
@@ -17,6 +18,7 @@ export function FundTable({
   activeFilter,
   searchQuery,
   selectedSection,
+  onViewDetails,
 }: FundTableProps) {
   const filteredSections = useMemo(() => {
     return sections
@@ -71,7 +73,11 @@ export function FundTable({
         </thead>
         <tbody>
           {filteredSections.map((section) => (
-            <SectionGroup key={section.id} section={section} />
+            <SectionGroup
+              key={section.id}
+              section={section}
+              onViewDetails={onViewDetails}
+            />
           ))}
           {filteredSections.length === 0 && (
             <tr>
@@ -89,12 +95,22 @@ export function FundTable({
   );
 }
 
-function SectionGroup({ section }: { section: Section }) {
+function SectionGroup({
+  section,
+  onViewDetails,
+}: {
+  section: Section;
+  onViewDetails?: (question: QuestionItem) => void;
+}) {
   return (
     <>
       <SectionHeader title={section.title} />
       {section.questions.map((question) => (
-        <QuestionRow key={question.id} question={question} />
+        <QuestionRow
+          key={question.id}
+          question={question}
+          onViewDetails={onViewDetails}
+        />
       ))}
     </>
   );

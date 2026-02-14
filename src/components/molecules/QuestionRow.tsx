@@ -3,9 +3,10 @@ import type { QuestionItem } from '@/types';
 
 interface QuestionRowProps {
   question: QuestionItem;
+  onViewDetails?: (question: QuestionItem) => void;
 }
 
-export function QuestionRow({ question }: QuestionRowProps) {
+export function QuestionRow({ question, onViewDetails }: QuestionRowProps) {
   return (
     <tr className="border-b border-border-light transition-colors duration-fast hover:bg-surface-alt">
       <td className="px-4 py-3.5 text-sm text-txt-primary max-w-[320px]">
@@ -23,7 +24,10 @@ export function QuestionRow({ question }: QuestionRowProps) {
         <StatusIcon isReviewed={question.isReviewed} />
       </td>
       <td className="px-4 py-3.5">
-        <button className="text-sm font-medium text-txt-link hover:text-brand-primary-hover transition-colors duration-fast">
+        <button
+          onClick={() => onViewDetails?.(question)}
+          className="text-sm font-medium text-txt-link hover:text-brand-primary-hover transition-colors duration-fast"
+        >
           View Details
         </button>
       </td>

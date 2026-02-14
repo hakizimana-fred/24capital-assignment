@@ -68,6 +68,33 @@ export interface NavItem {
   group: 'main' | 'others';
 }
 
+// ─── Question Detail Modal ───────────────────────────────────────────────────
+
+export type QuestionAnswer = 'yes' | 'no' | 'na';
+
+export interface Attachment {
+  name: string;
+  size: string;
+}
+
+export interface Note {
+  date: string;
+  content: string;
+  author: string;
+}
+
+export interface QuestionDetail {
+  sectionLabel: string;
+  warningLevel: WarningLevel;
+  question: string;
+  rmpReference?: string;
+  currentAnswer: QuestionAnswer;
+  evidence: string;
+  attachments: Attachment[];
+  status: FundStatus;
+  notes: Note[];
+}
+
 // ─── General ─────────────────────────────────────────────────────────────────
 
 export type FilterTab = 'all' | 'pending' | 'completed';
