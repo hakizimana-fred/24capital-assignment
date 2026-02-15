@@ -1,5 +1,5 @@
 export const fontFamily = {
-  sans: ['var(--font-plus-jakarta)', '"Plus Jakarta Sans"', '"Nunito Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+  sans: ['var(--font-montserrat)', '"Montserrat"', 'system-ui', '-apple-system', 'sans-serif'],
   mono: ['"JetBrains Mono"', '"Fira Code"', 'monospace'],
 } as const;
 

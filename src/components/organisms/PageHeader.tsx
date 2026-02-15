@@ -9,7 +9,7 @@ interface PageHeaderProps {
 
 export function PageHeader({ title, subtitle, showPeriod = true }: PageHeaderProps) {
   return (
-    <div className="flex items-start justify-between">
+    <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
       <div>
         <Text variant="heading-2">{title}</Text>
         <Text variant="body-sm" className="mt-1">

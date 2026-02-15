@@ -1,5 +1,5 @@
-import { cn } from '@/lib/cn';
 import { Badge, warningToBadgeVariant } from '@/components/atoms';
+import { cn } from '@/lib/cn';
 import type { Fund } from '@/types';
 
 interface FundTabProps {
@@ -13,10 +13,10 @@ export function FundTab({ fund, isActive, onClick }: FundTabProps) {
     <button
       onClick={onClick}
       className={cn(
-        'relative flex min-w-[200px] flex-1 flex-col gap-1.5 rounded-xl border px-5 py-4 text-left transition-all duration-base',
+        'relative flex w-full flex-col gap-1.5 rounded-xl border px-5 py-4 text-left transition-all duration-base',
         isActive
-          ? 'border-brand-primary bg-surface shadow-tab-active'
-          : 'border-border bg-surface hover:border-border-light hover:shadow-tab cursor-pointer',
+          ? 'border-brand-primary border-6 border-r-8 bg-surface'
+          : 'border-border bg-surface hover:border-border-light cursor-pointer',
       )}
     >
       <div className="flex items-center gap-3">

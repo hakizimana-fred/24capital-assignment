@@ -11,7 +11,7 @@ export function Sidebar() {
   const otherItems = navigationItems.filter((item) => item.group === 'others');
 
   return (
-    <aside className="fixed left-0 top-0 z-30 flex h-screen w-sidebar flex-col items-center border-r border-border-light bg-sidebar-bg py-5">
+    <aside className="sticky top-0 z-30 hidden h-screen w-sidebar shrink-0 flex-col items-center border-r border-border-light bg-sidebar-bg py-5 md:flex">
       {/* Logo */}
       <div className="mb-6 flex h-10 w-10 items-center justify-center rounded-xl bg-brand-primary">
         <span className="text-lg font-bold text-txt-inverse">24</span>
@@ -28,7 +28,7 @@ export function Sidebar() {
             item={item}
             isActive={
               item.href === '/'
-                ? pathname === '/'
+                ? pathname === '/' && item.id === 'dashboard'
                 : pathname.startsWith(item.href)
             }
           />
