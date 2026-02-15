@@ -11,14 +11,18 @@ interface FundTabsProps {
 
 export function FundTabs({ funds, activeFundId, onFundChange }: FundTabsProps) {
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-4 overflow-x-auto">
       {funds.map((fund) => (
-        <FundTab
+        <div
           key={fund.id}
-          fund={fund}
-          isActive={fund.id === activeFundId}
-          onClick={() => onFundChange(fund.id)}
-        />
+          className="shrink-0 rounded-2xl bg-surface-soft p-1.5 sm:shrink sm:flex-1"
+        >
+          <FundTab
+            fund={fund}
+            isActive={fund.id === activeFundId}
+            onClick={() => onFundChange(fund.id)}
+          />
+        </div>
       ))}
     </div>
   );

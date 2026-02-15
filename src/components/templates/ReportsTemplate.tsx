@@ -24,6 +24,7 @@ export function ReportsTemplate() {
         <ReusablePieChart
           title="Company Balance by Counterparty"
           data={counterpartyPieData}
+          height={380}
         />
         <HorizontalBarChart
           title="Symbol-Level Returns: Jan 26 vs Feb-26"
@@ -34,12 +35,11 @@ export function ReportsTemplate() {
           yAxisLabel="Symbols"
           xAxisDomain={[-4, 3]}
         />
+        <ReusableSunburstChart
+          title="Sunburst Chart"
+          data={counterpartySunburstData}
+        />
       </div>
-
-      <ReusableSunburstChart
-        title="Sunburst Chart"
-        data={counterpartySunburstData}
-      />
     </div>
   );
 }

@@ -1,9 +1,9 @@
 'use client';
 
-import { useMemo } from 'react';
 import { QuestionRow } from '@/components/molecules/QuestionRow';
 import { SectionHeader } from '@/components/molecules/SectionHeader';
-import type { Section, FilterTab, QuestionItem } from '@/types';
+import type { FilterTab, QuestionItem, Section } from '@/types';
+import { useMemo } from 'react';
 
 interface FundTableProps {
   sections: Section[];
@@ -51,46 +51,41 @@ export function FundTable({
 
   return (
     <div className="card overflow-hidden">
-      <table className="w-full">
-        <thead>
-          <tr className="border-b border-border">
-            <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-txt-tertiary">
-              Question
-            </th>
-            <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-txt-tertiary">
-              Answers
-            </th>
-            <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-txt-tertiary">
-              Warning
-            </th>
-            <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-txt-tertiary">
-              Status
-            </th>
-            <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-txt-tertiary">
-              Action
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredSections.map((section) => (
-            <SectionGroup
-              key={section.id}
-              section={section}
-              onViewDetails={onViewDetails}
-            />
-          ))}
-          {filteredSections.length === 0 && (
-            <tr>
-              <td
-                colSpan={5}
-                className="px-4 py-12 text-center text-sm text-txt-tertiary"
-              >
-                No questions match your filters.
-              </td>
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[640px]">
+          <thead className="table-th">
+            <tr className="border-b border-border">
+              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-txt-tertiary ">
+                Question
+              </th>
+              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-txt-tertiary">
+                Answers
+              </th>
+              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-txt-tertiary">
+                Warning
+              </th>
+              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-txt-tertiary">
+                Status
+              </th>
+              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-txt-tertiary">
+                Action
+              </th>
             </tr>
-          )}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {filteredSections.map((section) => (
+              <SectionGroup key={section.id} section={section} onViewDetails={onViewDetails} />
+            ))}
+            {filteredSections.length === 0 && (
+              <tr>
+                <td colSpan={5} className="px-4 py-12 text-center text-sm text-txt-tertiary">
+                  No questions match your filters.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
@@ -106,11 +101,7 @@ function SectionGroup({
     <>
       <SectionHeader title={section.title} />
       {section.questions.map((question) => (
-        <QuestionRow
-          key={question.id}
-          question={question}
-          onViewDetails={onViewDetails}
-        />
+        <QuestionRow key={question.id} question={question} onViewDetails={onViewDetails} />
       ))}
     </>
   );

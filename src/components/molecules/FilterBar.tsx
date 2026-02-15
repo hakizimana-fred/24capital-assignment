@@ -1,9 +1,9 @@
 'use client';
 
-import { cn } from '@/lib/cn';
 import { Input, Select } from '@/components/atoms';
-import { Search } from 'lucide-react';
+import { cn } from '@/lib/cn';
 import type { FilterTab, SelectOption } from '@/types';
+import { ListFilter, Search } from 'lucide-react';
 
 const filterTabs: { value: FilterTab; label: string }[] = [
   { value: 'all', label: 'All' },
@@ -31,14 +31,15 @@ export function FilterBar({
   onSectionChange,
 }: FilterBarProps) {
   return (
-    <div className="flex items-center justify-between gap-4">
-      <div className="inline-flex rounded-lg border border-border bg-surface p-1">
-        {filterTabs.map((tab) => (
+    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+      <div className="inline-flex rounded-lg border border-border bg-surface-soft ">
+        {filterTabs.map((tab, index) => (
           <button
             key={tab.value}
             onClick={() => onFilterChange(tab.value)}
             className={cn(
-              'rounded-md px-4 py-1.5 text-sm font-medium transition-colors duration-fast',
+              'rounded-md px-5 py-2 text-sm font-medium transition-colors duration-fast',
+              index === 0 && 'flex-1', // 👈 first item stretches
               activeFilter === tab.value
                 ? 'bg-brand-primary text-txt-inverse'
                 : 'text-txt-secondary hover:text-txt-primary',
@@ -55,12 +56,13 @@ export function FilterBar({
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
           icon={<Search className="h-4 w-4" />}
-          className="w-52"
+          className="w-full sm:w-52"
         />
         <Select
           options={sectionOptions}
           value={selectedSection}
           onChange={(e) => onSectionChange(e.target.value)}
+          icon={<ListFilter className="h-4 w-4" />}
         />
       </div>
     </div>

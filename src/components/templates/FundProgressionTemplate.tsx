@@ -1,15 +1,15 @@
 'use client';
 
-import { useState, useMemo, useCallback } from 'react';
-import { PageHeader } from '@/components/organisms/PageHeader';
-import { FundTabs } from '@/components/organisms/FundTabs';
-import { FundTable } from '@/components/organisms/FundTable';
-import { QuestionDetailModal } from '@/components/organisms/QuestionDetailModal';
 import { FilterBar } from '@/components/molecules/FilterBar';
-import { useModal } from '@/hooks/useModal';
-import { getQuestionDetail } from '@/data/questionDetails';
+import { FundTable } from '@/components/organisms/FundTable';
+import { FundTabs } from '@/components/organisms/FundTabs';
+import { PageHeader } from '@/components/organisms/PageHeader';
+import { QuestionDetailModal } from '@/components/organisms/QuestionDetailModal';
 import { funds, fundSections } from '@/data/funds';
+import { getQuestionDetail } from '@/data/questionDetails';
+import { useModal } from '@/hooks/useModal';
 import type { FilterTab, QuestionDetail, QuestionItem, SelectOption } from '@/types';
+import { useCallback, useMemo, useState } from 'react';
 
 export function FundProgressionTemplate() {
   const [activeFundId, setActiveFundId] = useState(funds[0].id);
@@ -19,10 +19,7 @@ export function FundProgressionTemplate() {
 
   const detailModal = useModal<QuestionDetail>();
 
-  const sections = useMemo(
-    () => fundSections[activeFundId] ?? [],
-    [activeFundId],
-  );
+  const sections = useMemo(() => fundSections[activeFundId] ?? [], [activeFundId]);
 
   const sectionOptions: SelectOption[] = useMemo(
     () => [
@@ -57,16 +54,9 @@ export function FundProgressionTemplate() {
 
   return (
     <div className="flex flex-col gap-6 animate-fade-in">
-      <PageHeader
-        title="Fund Progression"
-        subtitle="Review client responses for each funds."
-      />
+      <PageHeader title="Fund Progression" subtitle="Review client responses for each funds." />
 
-      <FundTabs
-        funds={funds}
-        activeFundId={activeFundId}
-        onFundChange={handleFundChange}
-      />
+      <FundTabs funds={funds} activeFundId={activeFundId} onFundChange={handleFundChange} />
 
       <FilterBar
         activeFilter={activeFilter}

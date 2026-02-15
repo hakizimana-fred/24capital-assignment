@@ -13,7 +13,7 @@ const config = {
     extend: {
       colors: {
         brand: {
-          primary: '#1B6CE0',
+          primary: '#1F8BCA',
           'primary-hover': '#1559B8',
           'primary-light': '#E8F1FD',
           secondary: '#0D9488',
@@ -22,7 +22,8 @@ const config = {
         surface: {
           DEFAULT: '#FFFFFF',
           alt: '#F9FAFB',
-          page: '#F4F7FC',
+          page: '#EBF8FE',
+          soft: '#F7F7F7',
         },
         border: {
           DEFAULT: '#E5E9F0',
@@ -41,7 +42,7 @@ const config = {
           'success-bg': '#ECFDF5',
           warning: '#F59E0B',
           'warning-bg': '#FFFBEB',
-          'warning-text': '#D97706',
+          'warning-text': '#FA7319',
           danger: '#EF4444',
           'danger-bg': '#FEF2F2',
           'danger-text': '#DC2626',
@@ -49,7 +50,7 @@ const config = {
           'info-bg': '#EFF6FF',
         },
         sidebar: {
-          bg: '#F4F7FC',
+          bg: '#F0FAFF',
           icon: '#94A3B8',
           'icon-active': '#1B6CE0',
           label: '#94A3B8',
@@ -70,7 +71,13 @@ const config = {
       },
 
       fontFamily: {
-        sans: ['var(--font-plus-jakarta)', '"Plus Jakarta Sans"', '"Nunito Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+        sans: [
+          'var(--font-montserrat)',
+          '"Montserrat"',
+          'system-ui',
+          '-apple-system',
+          'sans-serif',
+        ],
         mono: ['"JetBrains Mono"', '"Fira Code"', 'monospace'],
       },
 
@@ -109,12 +116,12 @@ const config = {
       },
 
       spacing: {
-        '4.5': '1.125rem',
-        '13': '3.25rem',
-        '15': '3.75rem',
-        '18': '4.5rem',
-        '30': '7.5rem',
-        '60': '15rem',
+        4.5: '1.125rem',
+        13: '3.25rem',
+        15: '3.75rem',
+        18: '4.5rem',
+        30: '7.5rem',
+        60: '15rem',
       },
 
       width: {

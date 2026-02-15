@@ -1,21 +1,21 @@
 'use client';
 
 import { cn } from '@/lib/cn';
-import Link from 'next/link';
+import type { NavItem } from '@/types';
 import {
-  LayoutDashboard,
-  Briefcase,
-  MessageSquare,
-  FileText,
   ArrowLeftRight,
   BarChart3,
+  Briefcase,
+  FileText,
+  HelpCircle,
+  LayoutDashboard,
+  MessageSquare,
+  Settings,
   ShieldCheck,
   TrendingUp,
   Users,
-  Settings,
-  HelpCircle,
 } from 'lucide-react';
-import type { NavItem } from '@/types';
+import Link from 'next/link';
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   LayoutDashboard,
