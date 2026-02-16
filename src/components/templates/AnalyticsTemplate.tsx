@@ -11,17 +11,21 @@ export function AnalyticsTemplate() {
 
   return (
     <div className="flex flex-col gap-6 animate-fade-in">
-      <PageHeader title="Analytics" subtitle="Portfolio performance and allocation insights." />
+      <PageHeader
+        title="Company Size Comparison"
+        subtitle="Review the size of company by selected period."
+      />
 
       <MultiLineChart
-        title="Company Size Comparison"
-        subtitle="Review the size of company by selected period"
+        title=""
+        subtitle=""
         data={companySizeData}
         xAxisKey="month"
         series={companySizeSeries}
         xAxisLabel="Month"
         yAxisLabel="Company Size"
-        yAxisDomain={[200, 240]}
+        yAxisDomain={[199, 241]}
+        yAxisTicks={[200, 205, 210, 215, 220, 225, 230, 235, 240]}
         height={320}
         periodOptions={yearOptions}
         periodValue={selectedYear}

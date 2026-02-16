@@ -1,12 +1,12 @@
-import type {
-  LineChartDataPoint,
-  PieChartDataPoint,
-  BarChartDataPoint,
-  SunburstNode,
-  LineChartSeries,
-  SelectOption,
-} from '@/types';
 import { colors } from '@/design-system/tokens';
+import type {
+  BarChartDataPoint,
+  LineChartDataPoint,
+  LineChartSeries,
+  PieChartDataPoint,
+  SelectOption,
+  SunburstNode,
+} from '@/types';
 
 export const lineChartData: LineChartDataPoint[] = [
   { month: 'Jan', company1: 4200, company2: 3800 },
@@ -45,19 +45,18 @@ export const barChartData: BarChartDataPoint[] = [
 ];
 
 // ─── Company Size Comparison (MultiLineChart) ──────────────────────────────
-
-export const companySizeData: Record<string, string | number>[] = [
+export const companySizeData = [
   { month: 'Jan 25', companyA: 200, companyB: 200 },
-  { month: 'Feb 25', companyA: 210, companyB: 202 },
+  { month: 'Feb 25', companyA: 207, companyB: 203 },
   { month: 'Mar 25', companyA: 210, companyB: 205 },
   { month: 'Apr 25', companyA: 215, companyB: 208 },
-  { month: 'May 25', companyA: 216, companyB: 210 },
-  { month: 'Jun 25', companyA: 215, companyB: 213 },
-  { month: 'Jul 25', companyA: 222, companyB: 215 },
-  { month: 'Aug 25', companyA: 225, companyB: 218 },
-  { month: 'Sep 25', companyA: 228, companyB: 220 },
-  { month: 'Oct 25', companyA: 232, companyB: 225 },
-  { month: 'Nov 25', companyA: 237, companyB: 229 },
+  { month: 'May 25', companyA: 220, companyB: 212 },
+  { month: 'Jun 25', companyA: 222, companyB: 215 },
+  { month: 'Jul 25', companyA: 227, companyB: 217 },
+  { month: 'Aug 25', companyA: 230, companyB: 219 },
+  { month: 'Sep 25', companyA: 233, companyB: 222 },
+  { month: 'Oct 25', companyA: 235, companyB: 225 },
+  { month: 'Nov 25', companyA: 238, companyB: 230 },
   { month: 'Dec 25', companyA: 240, companyB: 231 },
 ];
 

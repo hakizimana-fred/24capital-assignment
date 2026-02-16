@@ -54,6 +54,7 @@ export interface MultiLineChartProps {
   xAxisLabel?: string;
   yAxisLabel?: string;
   height?: number;
+  yAxisTicks?: number[];
   showDots?: boolean;
   yAxisDomain?: [number | string, number | string];
   tooltipFormatter?: (value: number, name: string) => string;

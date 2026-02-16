@@ -1,22 +1,22 @@
 'use client';
 
-import { memo } from 'react';
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  Legend,
-  Label,
-} from 'recharts';
-import { Calendar } from 'lucide-react';
-import { Card, Text, Select } from '@/components/atoms';
+import { Card, Select, Text } from '@/components/atoms';
 import { colors } from '@/design-system/tokens';
 import { cn } from '@/lib/cn';
 import type { MultiLineChartProps } from '@/types';
+import { Calendar } from 'lucide-react';
+import { memo } from 'react';
+import {
+  CartesianGrid,
+  Label,
+  Legend,
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts';
 
 export const MultiLineChart = memo(function MultiLineChart({
   title,
@@ -26,6 +26,7 @@ export const MultiLineChart = memo(function MultiLineChart({
   series,
   xAxisLabel,
   yAxisLabel,
+  yAxisTicks,
   height = 280,
   showDots = true,
   yAxisDomain,
@@ -84,6 +85,7 @@ export const MultiLineChart = memo(function MultiLineChart({
               axisLine={false}
               tickLine={false}
               domain={yAxisDomain}
+              ticks={yAxisTicks}
               tickFormatter={yAxisFormatter}
             >
               {yAxisLabel && (
@@ -92,7 +94,11 @@ export const MultiLineChart = memo(function MultiLineChart({
                   angle={-90}
                   position="insideLeft"
                   offset={0}
-                  style={{ fontSize: 12, fill: colors.txt.tertiary, textAnchor: 'middle' }}
+                  style={{
+                    fontSize: 12,
+                    fill: colors.txt.tertiary,
+                    textAnchor: 'middle',
+                  }}
                 />
               )}
             </YAxis>
@@ -124,11 +130,7 @@ export const MultiLineChart = memo(function MultiLineChart({
                 name={s.name}
                 stroke={s.color}
                 strokeWidth={2.5}
-                dot={
-                  showDots
-                    ? { r: 4, fill: s.color, strokeWidth: 0 }
-                    : false
-                }
+                dot={showDots ? { r: 4, fill: s.color, strokeWidth: 0 } : false}
                 activeDot={{ r: 5, strokeWidth: 2 }}
                 animationDuration={800}
                 animationEasing="ease-out"
