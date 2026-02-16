@@ -86,7 +86,7 @@ export interface SunburstNode {
 // ─── Reusable Charts ────────────────────────────────────────────────────────
 
 export interface ReusablePieChartProps {
-  title: string;
+  title?: string;
   data: PieChartDataPoint[];
   innerRadius?: number;
   outerRadius?: number;
@@ -102,7 +102,7 @@ export interface BarSeries {
 }
 
 export interface HorizontalBarChartProps {
-  title: string;
+  title?: string;
   data: Record<string, string | number>[];
   categoryKey: string;
   series: BarSeries[];
@@ -115,7 +115,7 @@ export interface HorizontalBarChartProps {
 }
 
 export interface ReusableSunburstChartProps {
-  title: string;
+  title?: string;
   data: SunburstNode;
   showLabels?: boolean;
   width?: number;
