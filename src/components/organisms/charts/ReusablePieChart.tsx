@@ -58,9 +58,11 @@ export const ReusablePieChart = memo(function ReusablePieChart({
 }: ReusablePieChartProps) {
   return (
     <Card className={cn('p-6', className)}>
-      <Text variant="heading-4" className="mb-4">
-        {title}
-      </Text>
+      {title && (
+        <Text variant="heading-4" className="mb-4">
+          {title}
+        </Text>
+      )}
       <div style={{ height }}>
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>

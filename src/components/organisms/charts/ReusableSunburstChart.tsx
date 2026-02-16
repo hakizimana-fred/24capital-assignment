@@ -92,9 +92,11 @@ export const ReusableSunburstChart = memo(function ReusableSunburstChart({
 
   return (
     <Card className={cn('p-6', className)}>
-      <Text variant="heading-4" className="mb-4">
-        {title}
-      </Text>
+      {title && (
+        <Text variant="heading-4" className="mb-4">
+          {title}
+        </Text>
+      )}
       <div className="flex items-center justify-center">
         <div className="relative" style={{ width, height }}>
           <svg
