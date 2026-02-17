@@ -26,7 +26,7 @@ export function ReportsTemplate() {
           <Card hover className="border-0 bg-surface p-6">
             <Text variant="heading-4">Company Balance by Counterparty</Text>
           </Card>
-          <ReusablePieChart data={counterpartyPieData} height={300} />
+          <ReusablePieChart outerRadius="95%" data={counterpartyPieData} height={460} />
         </div>
         <div className="flex flex-col gap-2">
           <Card hover className="border-0 bg-surface p-6">
@@ -39,7 +39,7 @@ export function ReportsTemplate() {
             xAxisLabel="Returns (%)"
             yAxisLabel="Symbols"
             xAxisDomain={[-4, 3]}
-            height={380}
+            height={480}
           />
         </div>
         <div className="flex flex-col gap-2">

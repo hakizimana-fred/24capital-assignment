@@ -90,7 +90,7 @@ export interface ReusablePieChartProps {
   title?: string;
   data: PieChartDataPoint[];
   innerRadius?: number;
-  outerRadius?: number;
+  outerRadius?: number | string;
   showLabels?: boolean;
   height?: number;
   className?: string;
