@@ -1,18 +1,12 @@
 'use client';
 
-import { memo } from 'react';
-import {
-  PieChart,
-  Pie,
-  Cell,
-  Tooltip,
-  ResponsiveContainer,
-} from 'recharts';
-import type { PieLabelRenderProps } from 'recharts';
 import { Card, Text } from '@/components/atoms';
 import { colors } from '@/design-system/tokens';
 import { cn } from '@/lib/cn';
-import type { ReusablePieChartProps, PieChartDataPoint } from '@/types';
+import type { PieChartDataPoint, ReusablePieChartProps } from '@/types';
+import { memo } from 'react';
+import type { PieLabelRenderProps } from 'recharts';
+import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';
 
 const RADIAN = Math.PI / 180;
 
@@ -47,11 +41,43 @@ function renderOuterLabel(props: PieLabelRenderProps) {
   );
 }
 
+function renderInnerLabel(props: PieLabelRenderProps) {
+  const { cx, cy, midAngle, innerRadius, outerRadius, percent } = props;
+  if (
+    typeof cx !== 'number' ||
+    typeof cy !== 'number' ||
+    typeof midAngle !== 'number' ||
+    typeof innerRadius !== 'number' ||
+    typeof outerRadius !== 'number' ||
+    typeof percent !== 'number' ||
+    percent < 0.02
+  )
+    return null;
+
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.55;
+  const x = cx + radius * Math.cos(-midAngle * RADIAN);
+  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+  return (
+    <text
+      x={x}
+      y={y}
+      textAnchor="middle"
+      dominantBaseline="central"
+      fontSize={12}
+      fontWeight={600}
+      fill={'#171717'}
+    >
+      {`${(percent * 100).toFixed(1)}%`}
+    </text>
+  );
+}
+
 export const ReusablePieChart = memo(function ReusablePieChart({
   title,
   data,
   innerRadius = 0,
-  outerRadius = 120,
+  outerRadius = '90%',
   showLabels = true,
   height = 320,
   className,
@@ -75,7 +101,7 @@ export const ReusablePieChart = memo(function ReusablePieChart({
               paddingAngle={1}
               dataKey="value"
               nameKey="name"
-              label={showLabels ? renderOuterLabel : false}
+              label={showLabels ? renderInnerLabel : false}
               labelLine={false}
               animationDuration={1200}
               animationEasing="ease-out"
@@ -93,10 +119,7 @@ export const ReusablePieChart = memo(function ReusablePieChart({
                 fontSize: '13px',
                 boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
               }}
-              formatter={(value, name) => [
-                `${Number(value)}%`,
-                name,
-              ]}
+              formatter={(value, name) => [`${Number(value)}%`, name]}
             />
           </PieChart>
         </ResponsiveContainer>

@@ -1,12 +1,12 @@
 'use client';
 
-import { memo, useMemo, useState, useCallback } from 'react';
-import { hierarchy, partition } from 'd3-hierarchy';
-import { arc as d3Arc } from 'd3-shape';
 import { Card, Text } from '@/components/atoms';
 import { colors } from '@/design-system/tokens';
 import { cn } from '@/lib/cn';
-import type { SunburstNode, ReusableSunburstChartProps } from '@/types';
+import type { ReusableSunburstChartProps, SunburstNode } from '@/types';
+import { hierarchy, partition } from 'd3-hierarchy';
+import { arc as d3Arc } from 'd3-shape';
+import { memo, useCallback, useMemo, useState } from 'react';
 
 interface ArcDatum {
   x0: number;
@@ -31,7 +31,7 @@ function getColor(d: ArcDatum): string {
   return colors.chart.slate;
 }
 
-const MIN_ARC_FOR_LABEL = 0.2; // radians (~11 degrees)
+const MIN_ARC_FOR_LABEL = 0.1; // radians (~6 degrees)
 
 export const ReusableSunburstChart = memo(function ReusableSunburstChart({
   title,
@@ -69,21 +69,18 @@ export const ReusableSunburstChart = memo(function ReusableSunburstChart({
     [radius],
   );
 
-  const handleMouseEnter = useCallback(
-    (id: string, datum: ArcDatum, event: React.MouseEvent) => {
-      setHoveredId(id);
-      const svgRect = (event.currentTarget as SVGElement).closest('svg')?.getBoundingClientRect();
-      if (svgRect) {
-        setTooltip({
-          x: event.clientX - svgRect.left,
-          y: event.clientY - svgRect.top - 10,
-          name: datum.data.name,
-          value: datum.data.value ?? 0,
-        });
-      }
-    },
-    [],
-  );
+  const handleMouseEnter = useCallback((id: string, datum: ArcDatum, event: React.MouseEvent) => {
+    setHoveredId(id);
+    const svgRect = (event.currentTarget as SVGElement).closest('svg')?.getBoundingClientRect();
+    if (svgRect) {
+      setTooltip({
+        x: event.clientX - svgRect.left,
+        y: event.clientY - svgRect.top - 10,
+        name: datum.data.name,
+        value: datum.data.value ?? 0,
+      });
+    }
+  }, []);
 
   const handleMouseLeave = useCallback(() => {
     setHoveredId(null);
@@ -98,19 +95,17 @@ export const ReusableSunburstChart = memo(function ReusableSunburstChart({
         </Text>
       )}
       <div className="flex items-center justify-center">
-        <div className="relative" style={{ width, height }}>
+        <div className="relative w-full" style={{ aspectRatio: '1' }}>
           <svg
-            width={width}
-            height={height}
+            width="100%"
+            height="100%"
             viewBox={`${-width / 2} ${-height / 2} ${width} ${height}`}
           >
             {arcData.map((d, i) => {
               const datum = d as unknown as ArcDatum;
               const id = `${datum.data.name}-${datum.depth}-${i}`;
               const isHovered = hoveredId === id;
-              const parentHovered =
-                datum.parent &&
-                hoveredId?.startsWith(datum.parent.data.name);
+              const parentHovered = datum.parent && hoveredId?.startsWith(datum.parent.data.name);
               const fill = getColor(datum);
               const opacity =
                 hoveredId === null
@@ -123,12 +118,15 @@ export const ReusableSunburstChart = memo(function ReusableSunburstChart({
 
               const arcWidth = datum.x1 - datum.x0;
               const midAngle = (datum.x0 + datum.x1) / 2;
-              const centroid = arcGenerator.centroid(datum);
+              const isInnerRing = datum.depth === 1;
+              const labelRadius = datum.y0 + (datum.y1 - datum.y0) * (isInnerRing ? 0.6 : 0.5);
+              const labelX = labelRadius * Math.cos(midAngle - Math.PI / 2);
+              const labelY = labelRadius * Math.sin(midAngle - Math.PI / 2);
+              const labelWords = isInnerRing ? datum.data.name.split(' ') : null;
               let rotationDeg = (midAngle * 180) / Math.PI - 90;
               if (midAngle > Math.PI) rotationDeg += 180;
 
-              const canShowLabel =
-                showLabels && arcWidth > MIN_ARC_FOR_LABEL;
+              const canShowLabel = showLabels && arcWidth > MIN_ARC_FOR_LABEL;
 
               return (
                 <g key={id}>
@@ -145,29 +143,35 @@ export const ReusableSunburstChart = memo(function ReusableSunburstChart({
                     onMouseEnter={(e) => handleMouseEnter(id, datum, e)}
                     onMouseLeave={handleMouseLeave}
                   />
-                  {canShowLabel && centroid && (
+                  {canShowLabel && (
                     <text
-                      x={centroid[0]}
-                      y={centroid[1]}
+                      x={labelX}
+                      y={labelY}
                       textAnchor="middle"
                       dominantBaseline="central"
-                      fontSize={datum.depth === 1 ? 11 : 9}
+                      fontSize={isInnerRing ? 7 : 9}
                       fontWeight={datum.depth === 1 ? 600 : 400}
                       fill={colors.txt.primary}
-                      opacity={
-                        hoveredId === null
-                          ? 1
-                          : isHovered || parentHovered
-                            ? 1
-                            : 0.3
-                      }
-                      transform={`rotate(${rotationDeg}, ${centroid[0]}, ${centroid[1]})`}
+                      opacity={hoveredId === null ? 1 : isHovered || parentHovered ? 1 : 0.3}
+                      transform={`rotate(${rotationDeg}, ${labelX}, ${labelY})`}
                       style={{
                         pointerEvents: 'none',
                         transition: 'opacity 200ms ease',
                       }}
                     >
-                      {datum.data.name}
+                      {labelWords && labelWords.length > 1 ? (
+                        labelWords.map((word, wi) => (
+                          <tspan
+                            key={wi}
+                            x={labelX}
+                            dy={wi === 0 ? `-${((labelWords.length - 1) * 0.6)}em` : '1.2em'}
+                          >
+                            {word}
+                          </tspan>
+                        ))
+                      ) : (
+                        datum.data.name
+                      )}
                     </text>
                   )}
                 </g>
@@ -184,13 +188,9 @@ export const ReusableSunburstChart = memo(function ReusableSunburstChart({
                 transform: 'translate(-50%, -100%)',
               }}
             >
-              <span className="font-medium text-txt-primary">
-                {tooltip.name}
-              </span>
+              <span className="font-medium text-txt-primary">{tooltip.name}</span>
               {tooltip.value > 0 && (
-                <span className="ml-2 text-txt-secondary">
-                  {tooltip.value}
-                </span>
+                <span className="ml-2 text-txt-secondary">{tooltip.value}</span>
               )}
             </div>
           )}

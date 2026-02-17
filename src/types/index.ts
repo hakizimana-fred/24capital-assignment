@@ -54,6 +54,7 @@ export interface MultiLineChartProps {
   xAxisLabel?: string;
   yAxisLabel?: string;
   height?: number;
+  yAxisTicks?: number[];
   showDots?: boolean;
   yAxisDomain?: [number | string, number | string];
   tooltipFormatter?: (value: number, name: string) => string;
@@ -89,7 +90,7 @@ export interface ReusablePieChartProps {
   title?: string;
   data: PieChartDataPoint[];
   innerRadius?: number;
-  outerRadius?: number;
+  outerRadius?: number | string;
   showLabels?: boolean;
   height?: number;
   className?: string;
