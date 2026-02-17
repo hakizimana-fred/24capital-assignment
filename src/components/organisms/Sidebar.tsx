@@ -1,8 +1,9 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
 import { SidebarNavItem } from '@/components/molecules/SidebarNavItem';
 import { navigationItems } from '@/data/navigation';
+import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 
 export function Sidebar() {
   const pathname = usePathname();
@@ -13,12 +14,12 @@ export function Sidebar() {
   return (
     <aside className="sticky top-0 z-30 hidden h-screen w-sidebar shrink-0 flex-col items-center border-r border-border-light bg-sidebar-bg py-5 md:flex">
       {/* Logo */}
-      <div className="mb-6 flex h-10 w-10 items-center justify-center rounded-xl bg-brand-primary">
-        <span className="text-lg font-bold text-txt-inverse">24</span>
+      <div className="mb-6 flex h-10 w-10 items-center justify-center">
+        <Image src="/images/logo.png" alt="24 Capital" width={40} height={40} />
       </div>
 
       {/* Main nav */}
-      <nav className="flex flex-1 flex-col items-center gap-1">
+      <nav className="flex flex-col items-center gap-1">
         <span className="mb-2 text-[10px] font-semibold uppercase tracking-widest text-sidebar-label">
           Main
         </span>
@@ -33,11 +34,9 @@ export function Sidebar() {
             }
           />
         ))}
-      </nav>
 
-      {/* Others nav */}
-      <nav className="flex flex-col items-center gap-1 pb-2">
-        <span className="mb-2 text-[10px] font-semibold uppercase tracking-widest text-sidebar-label">
+        {/* Others */}
+        <span className="mb-2 mt-3 text-[10px] font-semibold uppercase tracking-widest text-sidebar-label">
           Others
         </span>
         {otherItems.map((item) => (
@@ -47,12 +46,18 @@ export function Sidebar() {
             isActive={pathname.startsWith(item.href) && item.href !== '/'}
           />
         ))}
-
-        {/* User avatar */}
-        <div className="mt-4 flex h-9 w-9 items-center justify-center rounded-full bg-brand-secondary text-xs font-bold text-txt-inverse">
-          JD
-        </div>
       </nav>
+
+      {/* User avatar */}
+      <div className="mt-auto">
+        <Image
+          src="/images/avatar.png"
+          alt="User avatar"
+          width={36}
+          height={36}
+          className="rounded-full"
+        />
+      </div>
     </aside>
   );
 }

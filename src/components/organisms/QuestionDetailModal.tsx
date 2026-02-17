@@ -1,16 +1,17 @@
 'use client';
 
-import { useState } from 'react';
-import { Badge, Button, Modal, RadioGroup, Textarea } from '@/components/atoms';
-import { warningToBadgeVariant } from '@/components/atoms';
+import {
+  Badge,
+  Button,
+  Modal,
+  RadioGroup,
+  Textarea,
+  warningToBadgeVariant,
+} from '@/components/atoms';
 import { cn } from '@/lib/cn';
+import type { Attachment, FundStatus, QuestionAnswer, QuestionDetail } from '@/types';
 import { CheckCircle2, Clock, Copy, ExternalLink, FileText } from 'lucide-react';
-import type {
-  Attachment,
-  FundStatus,
-  QuestionAnswer,
-  QuestionDetail,
-} from '@/types';
+import { useState } from 'react';
 
 interface QuestionDetailModalProps {
   open: boolean;
@@ -60,12 +61,7 @@ function AttachmentChip({ attachment }: { attachment: Attachment }) {
   );
 }
 
-export function QuestionDetailModal({
-  open,
-  onClose,
-  detail,
-  onSave,
-}: QuestionDetailModalProps) {
+export function QuestionDetailModal({ open, onClose, detail, onSave }: QuestionDetailModalProps) {
   const [answer, setAnswer] = useState<QuestionAnswer>(detail.currentAnswer);
   const [status, setStatus] = useState<FundStatus>(detail.status);
   const [internalNote, setInternalNote] = useState('');
@@ -93,20 +89,20 @@ export function QuestionDetailModal({
           </div>
 
           {/* Question */}
-          <p className="text-sm font-medium text-txt-primary leading-relaxed">
-            {detail.question}
-          </p>
+          <p className="text-sm font-medium text-txt-primary leading-relaxed">{detail.question}</p>
 
           {/* RMP Reference */}
-          {detail.rmpReference && (
-            <a
-              href="#"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-txt-link hover:text-brand-primary-hover transition-colors duration-fast"
-            >
-              {detail.rmpReference}
-              <ExternalLink className="h-3.5 w-3.5" />
-            </a>
-          )}
+          <div className="flex justify-end">
+            {detail.rmpReference && (
+              <a
+                href="#"
+                className="inline-flex  items-center gap-1.5 text-sm font-medium text-txt-link hover:text-brand-primary-hover transition-colors duration-fast"
+              >
+                {detail.rmpReference}
+                <ExternalLink className="h-3.5 w-3.5" />
+              </a>
+            )}
+          </div>
 
           {/* Answer selection */}
           <RadioGroup<QuestionAnswer>
@@ -118,12 +114,8 @@ export function QuestionDetailModal({
 
           {/* Evidence */}
           <div className="space-y-2">
-            <h4 className="text-sm font-semibold text-txt-primary">
-              Details / Evidence
-            </h4>
-            <p className="text-sm text-txt-secondary leading-relaxed">
-              {detail.evidence}
-            </p>
+            <h4 className="text-sm font-semibold text-txt-primary">Details / Evidence</h4>
+            <p className="text-sm text-txt-secondary leading-relaxed">{detail.evidence}</p>
           </div>
 
           {/* Attachments */}
@@ -137,9 +129,7 @@ export function QuestionDetailModal({
 
           {/* Status selection */}
           <div className="space-y-3">
-            <h4 className="text-sm font-semibold text-txt-primary">
-              Mark status as
-            </h4>
+            <h4 className="text-sm font-semibold text-txt-primary">Mark status as</h4>
             <RadioGroup<FundStatus>
               name="status"
               options={statusOptions}
@@ -154,20 +144,13 @@ export function QuestionDetailModal({
           <h4 className="text-sm font-semibold text-txt-primary">Notes</h4>
 
           {detail.notes.length > 0 ? (
-            <div className="space-y-3">
+            <div className="space-y-3 bg-surface-soft p-1">
               {detail.notes.map((note, i) => (
                 <div key={i} className="space-y-1">
-                  <span className="text-xs text-txt-tertiary">
-                    {note.date}
-                  </span>
+                  <span className="text-xs text-txt-tertiary">{note.date}</span>
                   <p className="text-sm text-txt-secondary leading-relaxed">
                     {note.content}
-                    {note.author && (
-                      <span className="text-txt-tertiary">
-                        {' '}
-                        - {note.author}
-                      </span>
-                    )}
+                    {note.author && <span className="text-txt-tertiary"> - {note.author}</span>}
                   </p>
                 </div>
               ))}
@@ -178,9 +161,7 @@ export function QuestionDetailModal({
 
           {/* Internal notes */}
           <div className="space-y-2 pt-2">
-            <h4 className="text-sm font-semibold text-txt-primary">
-              Internal notes
-            </h4>
+            <h4 className="text-sm font-semibold text-txt-primary">Internal notes</h4>
             <Textarea
               placeholder="Enter your notes here"
               rows={4}
@@ -191,9 +172,15 @@ export function QuestionDetailModal({
             />
           </div>
 
-          <Button variant="secondary" size="sm" className="w-full">
-            Add note
-          </Button>
+          <div className="flex justify-end">
+            <Button
+              variant="secondary"
+              size="sm"
+              className="border border-[#1F8BCA] bg-transparent text-[#1F8BCA] hover:bg-[#1F8BCA] hover:text-white"
+            >
+              Add note
+            </Button>
+          </div>
         </div>
       </div>
 

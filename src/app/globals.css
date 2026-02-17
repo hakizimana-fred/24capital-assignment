@@ -213,7 +213,7 @@
 
   /* Section header in table */
   .section-header {
-    @apply bg-brand-primary-light/60 px-4 py-2.5 text-xs font-bold
+    @apply bg-brand-primary-light/60 py-2.5 pl-6 pr-6 text-xs font-bold
            uppercase tracking-wider text-brand-primary;
   }
 }
