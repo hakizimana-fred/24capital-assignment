@@ -62,7 +62,7 @@ export const MultiLineChart = memo(function MultiLineChart({
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
             data={data}
-            margin={{ top: 5, right: 20, left: 10, bottom: xAxisLabel ? 20 : 5 }}
+            margin={{ top: yAxisLabel ? 20 : 5, right: 20, left: 10, bottom: xAxisLabel ? 20 : 5 }}
           >
             <CartesianGrid strokeDasharray="3 3" stroke={colors.border.light} />
             <XAxis
@@ -92,12 +92,12 @@ export const MultiLineChart = memo(function MultiLineChart({
                 <Label
                   value={yAxisLabel}
                   angle={-90}
-                  position="insideLeft"
-                  offset={0}
+                  position="insideTopLeft"
+                  dy={-15}
                   style={{
                     fontSize: 12,
                     fill: colors.txt.tertiary,
-                    textAnchor: 'middle',
+                    textAnchor: 'end',
                   }}
                 />
               )}

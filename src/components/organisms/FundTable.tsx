@@ -55,7 +55,7 @@ export function FundTable({
         <table className="w-full min-w-[640px]">
           <thead className="table-th">
             <tr className="border-b border-border">
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-txt-tertiary ">
+              <th className="py-3 pl-6 pr-4 text-left text-xs font-semibold uppercase tracking-wider text-txt-tertiary">
                 Question
               </th>
               <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-txt-tertiary">
@@ -67,7 +67,7 @@ export function FundTable({
               <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-txt-tertiary">
                 Status
               </th>
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-txt-tertiary">
+              <th className="py-3 pl-4 pr-6 text-left text-xs font-semibold uppercase tracking-wider text-txt-tertiary">
                 Action
               </th>
             </tr>
